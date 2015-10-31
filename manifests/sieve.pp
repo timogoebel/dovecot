@@ -3,6 +3,10 @@
 class dovecot::sieve (
   $username  = 'vmail',
   $groupname = 'vmail',
+  $sieve = '~/.dovecot.sieve',
+  $sieve_dir = '~/sieve',
+  $sieve_global_path = '/var/lib/dovecot/sieve/default.sieve',
+  $sieve_global_dir = '/var/lib/dovecot/sieve/',
   ) {
   include dovecot
 
@@ -35,10 +39,10 @@ class dovecot::sieve (
   dovecot::config::dovecotcfmulti { 'plugin':
     config_file => 'conf.d/90-plugin.conf',
     changes     => [
-      "set plugin/sieve '~/.dovecot.sieve'",
-      "set plugin/sieve_dir '~/sieve'",
-      "set plugin/sieve_global_path '/var/lib/dovecot/sieve/default.sieve'",
-      "set plugin/sieve_global_dir '/var/lib/dovecot/sieve/'",
+      "set plugin/sieve '${sieve}'",
+      "set plugin/sieve_dir '${sieve_dir}'",
+      "set plugin/sieve_global_path '${sieve_global_path}'",
+      "set plugin/sieve_global_dir '${sieve_global_dir}'",
       ],
   }
 }
